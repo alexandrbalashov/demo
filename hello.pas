@@ -1,5 +1,8 @@
-const PATH = 'data.txt';
+CONST PATH = 'data.txt';
       N = 10000;
+      
+VAR
+  arr: array[1..N] of integer;     
 
 procedure writefile();
 var f:text;
@@ -25,17 +28,45 @@ begin
     writeln(a);
   end;
   close(f);
-end;  
-    
-var time:longint;
+end;
+
+procedure writeArr();
+var i:integer;
 begin
-  time:= milliseconds();
-  writefile();
-  time:= milliseconds()-time;
-  writeln(time);
-  
+  for i:=1 to N do begin
+    arr[i]:=random(10);
+  end;
+end;  
+
+procedure readArr();
+var i:integer;
+begin
+  for i:=1 to N do begin
+    writeln(arr[i]);
+  end;
+end;
+
+procedure main();
+var time:longint;
+    timeReadFile:longint;
+    timeReadArr:longint;
+begin
+  writefile();  
   time:= milliseconds();
   readfile();
-  time:= milliseconds()-time;
-  writeln(time);
-end.  
+  timeReadFile:= milliseconds()-time;
+  
+  
+  writeArr();
+  time:= milliseconds();
+  readfile();
+  timeReadArr:= milliseconds()-time;
+  
+  writeln('read file = ',timeReadFile);
+  writeln('read array = ',timeReadArr);
+end;
+    
+    
+BEGIN
+  main(); 
+END.  
